@@ -4,11 +4,12 @@
 
 #include "DataCollector.hpp"
 
-DataCollector::DataCollector(const std::string stockName) {
+DataCollector::DataCollector(const std::string stockName, std::map<std::time_t, std::shared_ptr<Stock>> &stockData, std::vector<std::shared_ptr<Stock>> &vecStockData) {
     std::fstream stockDataStream;
     stockDataStream.open(stockName);
     std::string lineData;
     getline(stockDataStream, lineData);
+    size_t index{};
     while(stockDataStream.is_open() && getline(stockDataStream, lineData)) {
         std::stringstream lineDataExtraction(lineData);
         std::string dateStrIn{}, dateStr{};
@@ -19,15 +20,9 @@ DataCollector::DataCollector(const std::string stockName) {
                                            {return std::isdigit(c);});
         std::time_t date = std::stoi(dateStr);
         auto newStock =
-                std::make_shared<Stock>(date, openPrice, highPrice, lowPrice, closePrice);
+                std::make_shared<Stock>(date, openPrice, highPrice, lowPrice, closePrice, index);
         stockData.insert(std::make_pair(date, newStock));
+        vecStockData.push_back(newStock);
     }
     stockDataStream.close();
-}
-
-void DataCollector::PrintAnyStock() const {
-    std::cout<<"---"<<std::endl;
-    for(auto &i : stockData) {
-        std::cout<<i.first<<" "<<i.second->closePrice<<std::endl;
-    }
 }

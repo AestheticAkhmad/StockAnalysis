@@ -16,8 +16,7 @@
 
 class DataCollector {
 public:
-    DataCollector(const std::string stockName);
-    void PrintAnyStock() const;
+    DataCollector(const std::string stockName, std::map<std::time_t, std::shared_ptr<Stock>> &stockData, std::vector<std::shared_ptr<Stock>> &vecStockData);
 };
 
 

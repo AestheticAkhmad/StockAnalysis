@@ -4,6 +4,11 @@
 
 #include "AnalysisInitializer.hpp"
 
+AnalysisInitializer::AnalysisInitializer(const std::string &stockName) {
+    DataCollector dataCollector(stockName, stockData, vecStockData);
+
+}
+
 std::time_t AnalysisInitializer::ConvertStrDateToTime(std::string &strDate) {
     std::string resultDate{};
     std::copy_if(strDate.begin(), strDate.end(), std::back_inserter(resultDate),
@@ -14,6 +19,7 @@ std::time_t AnalysisInitializer::ConvertStrDateToTime(std::string &strDate) {
 }
 
 double AnalysisInitializer::GetAverageStockPriceInRange(std::string &strFrom, std::string &strTo) {
+    DataCollector collectData(stock);
     auto dateFrom{ConvertStrDateToTime(strFrom)}, dateTo{ConvertStrDateToTime(strFrom)};
-    return
+    return dateFrom;
 }
