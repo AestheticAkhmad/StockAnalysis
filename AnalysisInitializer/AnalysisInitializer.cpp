@@ -30,7 +30,7 @@ indexData AnalysisInitializer::GetIndicesAndValidate(std::size_t from, std::size
     if(fromIter == stockData.end() || toIter == stockData.end()) {
         return {0, 0, false};
     }
-    return {fromIter->second.get()->idx, toIter->second.get()->idx, true};
+    return {fromIter->second->idx, toIter->second->idx, true};
 }
 
 double AnalysisInitializer::GetAverageStockPriceInRange(std::string &strFrom, std::string &strTo) {
@@ -39,7 +39,7 @@ double AnalysisInitializer::GetAverageStockPriceInRange(std::string &strFrom, st
     if(!indices.exist) {
         return -1;
     }
-    return statsCalc.GetAverageStockPrice(indices.from, indices.to, vecStockData);
+    return StatisticsCalculator::GetAverageStockPrice(indices.from, indices.to, vecStockData);
 }
 
 double AnalysisInitializer::GetMedianStockInRange(std::string &strFrom, std::string &strTo) {
@@ -48,5 +48,5 @@ double AnalysisInitializer::GetMedianStockInRange(std::string &strFrom, std::str
     if(!indices.exist) {
         return -1;
     }
-    return statsCalc.GetMedianStockPrice(indices.from, indices.to, vecStockData);
+    return StatisticsCalculator::GetMedianStockPrice(indices.from, indices.to, vecStockData);
 }
