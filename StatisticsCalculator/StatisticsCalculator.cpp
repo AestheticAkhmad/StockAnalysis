@@ -7,10 +7,11 @@
 double StatisticsCalculator::GetAverageStockPrice(std::size_t startDate, std::size_t endDate, std::vector<std::shared_ptr<Stock>> &vecStockData) {
     auto vecIter = startDate;
     double sum{};
+    auto n = endDate-startDate + 1;
     for(auto i = vecIter; i <= endDate; ++i) {
         sum += vecStockData[i]->closePrice;
     }
-    return sum/static_cast<double>(endDate-startDate);
+    return sum/static_cast<double>(n);
 }
 
 double StatisticsCalculator::GetMedianStockPrice(std::size_t startDate, std::size_t endDate, std::vector<std::shared_ptr<Stock>> &vecStockData) {
@@ -25,4 +26,19 @@ double StatisticsCalculator::GetMedianStockPrice(std::size_t startDate, std::siz
     } else {
         return prices[prices.size()/2];
     }
+}
+
+double StatisticsCalculator::GetStandardDeviationPrice(std::size_t startDate, std::size_t endDate,
+                                                       std::vector<std::shared_ptr<Stock>> &vecStockData) {
+    auto average{GetAverageStockPrice(startDate, endDate, vecStockData)}, stdDev{0.0};
+    auto n = endDate - startDate + 1;
+    for(auto i = startDate; i <= endDate; ++i) {
+        stdDev += (pow(vecStockData[i]->closePrice - average, 2));
+    }
+    return sqrt(stdDev/static_cast<double>(n - 1));
+}
+
+double StatisticsCalculator::GetVariancePrice(std::size_t startDate, std::size_t endDate,
+                                              std::vector<std::shared_ptr<Stock>> &vecStockData) {
+    return pow(GetStandardDeviationPrice(startDate, endDate, vecStockData), 2);
 }

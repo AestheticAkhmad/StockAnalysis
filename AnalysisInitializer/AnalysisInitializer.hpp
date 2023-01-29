@@ -33,8 +33,8 @@ public:
     explicit AnalysisInitializer(const std::string &stockName);
     static std::size_t ConvertStrDateToTime(std::string &strDate);
     double GetAverageStockPriceInRange(std::string &from, std::string &to);
-//    double GetVarianceStockInRange(std::string &from, std::string &to);
-//    double GetStandardDeviationStockInRange(std::string &from, std::string &to);
+    double GetVarianceStockInRange(std::string &from, std::string &to);
+    double GetStandardDeviationStockInRange(std::string &from, std::string &to);
     double GetMedianStockInRange(std::string &from, std::string &to);
 };
 

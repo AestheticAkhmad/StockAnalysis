@@ -10,9 +10,6 @@ AnalysisInitializer::AnalysisInitializer(const std::string &stockName) {
     DataCollector dataCollector(stockName, stockData, vecStockData);
     StatisticsCalculator statisticsCalculator;
     statsCalc = statisticsCalculator;
-    for(auto i : vecStockData) {
-        //std::cout<<i->closePrice<<"\n";
-    }
 }
 
 std::size_t AnalysisInitializer::ConvertStrDateToTime(std::string &strDate) {
@@ -49,4 +46,22 @@ double AnalysisInitializer::GetMedianStockInRange(std::string &strFrom, std::str
         return -1;
     }
     return StatisticsCalculator::GetMedianStockPrice(indices.from, indices.to, vecStockData);
+}
+
+double AnalysisInitializer::GetStandardDeviationStockInRange(std::string &strFrom, std::string &strTo) {
+    auto dateFrom{ConvertStrDateToTime(strFrom)}, dateTo{ConvertStrDateToTime(strTo)};
+    auto indices{GetIndicesAndValidate(dateFrom, dateTo)};
+    if(!indices.exist) {
+        return -1;
+    }
+    return StatisticsCalculator::GetStandardDeviationPrice(indices.from, indices.to, vecStockData);
+}
+
+double AnalysisInitializer::GetVarianceStockInRange(std::string &strFrom, std::string &strTo) {
+    auto dateFrom{ConvertStrDateToTime(strFrom)}, dateTo{ConvertStrDateToTime(strTo)};
+    auto indices{GetIndicesAndValidate(dateFrom, dateTo)};
+    if(!indices.exist) {
+        return -1;
+    }
+    return StatisticsCalculator::GetVariancePrice(indices.from, indices.to, vecStockData);
 }
