@@ -9,13 +9,13 @@
 
 class Stock {
 public:
-    std::time_t date{};
+    std::size_t date{};
     double openPrice{};
     double highPrice{};
     double lowPrice{};
     double closePrice{};
     size_t idx{};
-    Stock(std::time_t date, double openPrice, double highPrice,
+    Stock(std::size_t date, double openPrice, double highPrice,
           double lowPrice, double closePrice, size_t idx) : date(date), openPrice(openPrice),
           highPrice(highPrice), lowPrice(lowPrice), closePrice(closePrice), idx(idx) {}
 };

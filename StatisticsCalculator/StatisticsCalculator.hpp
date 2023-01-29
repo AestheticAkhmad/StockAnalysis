@@ -10,11 +10,13 @@
 #include <iostream>
 #include <map>
 #include <numeric>
+#include <vector>
 #include "../Stock.hpp"
 
 class StatisticsCalculator {
 public:
-    double GetAverageStockPrice(std::time_t startDate, std::time_t endDate, std::map<std::time_t, std::shared_ptr<Stock>> &stockData, std::vector<std::shared_ptr<Stock>> &vecStockData);
+    double GetAverageStockPrice(std::size_t startDate, std::size_t endDate, std::vector<std::shared_ptr<Stock>> &vecStockData);
+    double GetMedianStockPrice(std::size_t startDate, std::size_t endDate, std::vector<std::shared_ptr<Stock>> &vecStockData);
 };
 
 

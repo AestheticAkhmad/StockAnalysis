@@ -16,7 +16,7 @@
 
 class DataCollector {
 public:
-    DataCollector(const std::string stockName, std::map<std::time_t, std::shared_ptr<Stock>> &stockData, std::vector<std::shared_ptr<Stock>> &vecStockData);
+    DataCollector(const std::string stockName, std::map<std::size_t, std::shared_ptr<Stock>> &stockData, std::vector<std::shared_ptr<Stock>> &vecStockData);
 };
 
 

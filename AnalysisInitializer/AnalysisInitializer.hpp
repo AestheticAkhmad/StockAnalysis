@@ -9,21 +9,32 @@
 #include <string>
 #include <map>
 #include <memory>
+#include <tuple>
 #include "../Stock.hpp"
 #include "../StatisticsCalculator/StatisticsCalculator.hpp"
 #include "../DataCollector/DataCollector.hpp"
 
+struct indexData {
+    std::size_t from{};
+    std::size_t to{};
+    bool exist{};
+    indexData(std::size_t from, std::size_t to, bool exist) : from(from), to(to), exist(exist) {}
+};
+
 class AnalysisInitializer {
 private:
-    std::map<std::time_t, std::shared_ptr<Stock>> stockData{};
+    StatisticsCalculator statsCalc{};
+    std::map<std::size_t, std::shared_ptr<Stock>> stockData{};
     std::vector<std::shared_ptr<Stock>> vecStockData{};
-    double GetStandardDeviationStockInRangeHelper(std::time_t &from, std::time_t &to);
+
+    indexData GetIndicesAndValidate(std::size_t from, std::size_t to);
+    //double GetStandardDeviationStockInRangeHelper(std::time_t &from, std::time_t &to);
 public:
-    AnalysisInitializer(const std::string &stockName);
-    std::time_t ConvertStrDateToTime(std::string &strDate);
+    explicit AnalysisInitializer(const std::string &stockName);
+    std::size_t ConvertStrDateToTime(std::string &strDate);
     double GetAverageStockPriceInRange(std::string &from, std::string &to);
-    double GetVarianceStockInRange(std::string &from, std::string &to);
-    double GetStandardDeviationStockInRange(std::string &from, std::string &to);
+//    double GetVarianceStockInRange(std::string &from, std::string &to);
+//    double GetStandardDeviationStockInRange(std::string &from, std::string &to);
     double GetMedianStockInRange(std::string &from, std::string &to);
 };
 
