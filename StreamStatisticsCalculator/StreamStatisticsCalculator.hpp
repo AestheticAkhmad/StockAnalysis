@@ -13,18 +13,22 @@
 
 class StreamStatisticsCalculator {
 private:
+    //Data Structures are used for finding median in Data Stream
+    std::priority_queue<double, std::vector<double>, std::greater<>> minQ{};
+    std::priority_queue<double> maxQ{};
+    void BalanceQueues();
+private:
     std::deque<double> priceData{};
     std::size_t dataSize{};
     double currentSum{};
 
-    double GetCurrentSum() const;
 public:
     [[nodiscard]] double GetCurrentAveragePrice() const;
     [[nodiscard]] double GetCurrentMedianPrice() const;
-    [[nodiscard]] double GetCurrentStandardDeviationPrce() const;
-    [[nodiscard]] double GetCurrentVariancePrice() const;
+//    [[nodiscard]] double GetCurrentStandardDeviationPrice() const;
+//    [[nodiscard]] double GetCurrentVariancePrice() const;
     void AppendPrice(double price);
-    void PopFrontPrice();
+//    void PopFrontPrice();
 };
 
 

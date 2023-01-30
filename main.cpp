@@ -1,5 +1,6 @@
 #include <iostream>
 #include "AnalysisInitializer/AnalysisInitializer.hpp"
+#include "StreamStatisticsCalculator/StreamStatisticsCalculator.hpp"
 #include <string>
 
 int main(int argc, char **argv) {
@@ -13,5 +14,15 @@ int main(int argc, char **argv) {
     auto variance = initStock.GetVarianceStockInRange(from, to);
     std::cout<<"Average: "<<average<<" | Median: "<<median<<std::endl;
     std::cout<<"Standard Dev: "<<stdDev<<" | Variance: "<<variance<<std::endl;
+
+    StreamStatisticsCalculator streamCalc;
+    for(auto i = 0; i < 10; ++i) {
+        int n{};
+        std::cin>>n;
+        streamCalc.AppendPrice(n);
+        std::cout<<"Average: "<<streamCalc.GetCurrentAveragePrice()<<"\n";
+        std::cout<<"Median: "<<streamCalc.GetCurrentMedianPrice()<<"\n";
+    }
+
     return 0;
 }
