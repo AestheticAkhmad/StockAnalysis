@@ -1,18 +1,17 @@
 #include <iostream>
 #include "AnalysisInitializer/AnalysisInitializer.hpp"
+#include <string>
 
-using namespace std;
-
-int main() {
-    string stock = "DataCollector/AMZN.txt";
-    string from = "2023-01-03";
-    string to = "2023-01-13";
+int main(int argc, char **argv) {
+    std::string stock = "DataCollector/AMZN.txt";
+    std::string from = "1997-05-15";
+    std::string to = "2023-01-13";
     AnalysisInitializer initStock(stock);
     auto average = initStock.GetAverageStockPriceInRange(from, to);
     auto median = initStock.GetMedianStockInRange(from, to);
     auto stdDev = initStock.GetStandardDeviationStockInRange(from, to);
     auto variance = initStock.GetVarianceStockInRange(from, to);
-    cout<<"Average: "<<average<<" | Median: "<<median<<endl;
-    cout<<"Standard Dev: "<<stdDev<<" | Variance: "<<variance<<endl;
+    std::cout<<"Average: "<<average<<" | Median: "<<median<<std::endl;
+    std::cout<<"Standard Dev: "<<stdDev<<" | Variance: "<<variance<<std::endl;
     return 0;
 }
