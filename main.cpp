@@ -17,11 +17,13 @@ int main(int argc, char **argv) {
 
     StreamStatisticsCalculator streamCalc;
     for(auto i = 0; i < 10; ++i) {
-        int n{};
+        double n{};
         std::cin>>n;
         streamCalc.AppendPrice(n);
-        std::cout<<"Average: "<<streamCalc.GetCurrentAveragePrice()<<"\n";
-        std::cout<<"Median: "<<streamCalc.GetCurrentMedianPrice()<<"\n";
+        std::cout<<"Avg: "<<streamCalc.GetCurrentAveragePrice()<<"\t|";
+        std::cout<<"Med: "<<streamCalc.GetCurrentMedianPrice()<<"\t|";
+        std::cout<<"StdDev: "<<streamCalc.GetCurrentStandardDeviationPrice()<<"\t|";
+        std::cout<<"Var: "<<streamCalc.GetCurrentVariancePrice()<<"\n";
     }
 
     return 0;

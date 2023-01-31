@@ -17,18 +17,24 @@ private:
     std::priority_queue<double, std::vector<double>, std::greater<>> minQ{};
     std::priority_queue<double> maxQ{};
     void BalanceQueues();
+    void SetCurrentAveragePrice();
+    void SetCurrentStandardDeviationPrice();
+    void SetCurrentVariancePrice();
+    void SetDifferenceSquare();
 private:
     std::deque<double> priceData{};
     std::size_t dataSize{};
     double currentSum{};
-
+    double currentAverage{};
+    double currentStdDev{};
+    double currentVariance{};
+    double differenceSquare{};
 public:
     [[nodiscard]] double GetCurrentAveragePrice() const;
     [[nodiscard]] double GetCurrentMedianPrice() const;
-//    [[nodiscard]] double GetCurrentStandardDeviationPrice() const;
-//    [[nodiscard]] double GetCurrentVariancePrice() const;
+    [[nodiscard]] double GetCurrentStandardDeviationPrice();
+    [[nodiscard]] double GetCurrentVariancePrice();
     void AppendPrice(double price);
-//    void PopFrontPrice();
 };
 
 

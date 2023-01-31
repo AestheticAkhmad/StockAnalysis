@@ -4,12 +4,51 @@
 
 #include "StreamStatisticsCalculator.hpp"
 
-double StreamStatisticsCalculator::GetCurrentAveragePrice() const {
+void StreamStatisticsCalculator::SetCurrentAveragePrice() {
     if(dataSize > 0) {
-        return currentSum / static_cast<double>(dataSize);
+        currentAverage = currentSum / static_cast<double>(dataSize);
     } else {
-        return 0;
+        currentAverage = 0;
     }
+}
+
+void StreamStatisticsCalculator::SetCurrentVariancePrice() {
+    if(dataSize > 1) {
+        currentVariance = differenceSquare / static_cast<double>(dataSize - 1);
+    } else {
+        currentVariance = 0;
+    }
+}
+
+void StreamStatisticsCalculator::SetCurrentStandardDeviationPrice() {
+    if(dataSize > 1) {
+        currentStdDev = sqrt(differenceSquare / static_cast<double>(dataSize - 1));
+    } else {
+        currentStdDev = 0;
+    }
+}
+
+void StreamStatisticsCalculator::SetDifferenceSquare() {
+    differenceSquare = 0;
+    for(auto &i : priceData) {
+        differenceSquare += pow(i - currentAverage, 2);
+    }
+}
+
+double StreamStatisticsCalculator::GetCurrentVariancePrice() {
+    SetDifferenceSquare();
+    SetCurrentVariancePrice();
+    return currentVariance;
+}
+
+double StreamStatisticsCalculator::GetCurrentStandardDeviationPrice() {
+    SetDifferenceSquare();
+    SetCurrentStandardDeviationPrice();
+    return currentStdDev;
+}
+
+double StreamStatisticsCalculator::GetCurrentAveragePrice() const {
+    return currentAverage;
 }
 
 double StreamStatisticsCalculator::GetCurrentMedianPrice() const {
@@ -31,7 +70,6 @@ double StreamStatisticsCalculator::GetCurrentMedianPrice() const {
     return result;
 }
 
-
 void StreamStatisticsCalculator::BalanceQueues() {
     auto a = static_cast<int>(minQ.size());
     auto b = static_cast<int>(maxQ.size());
@@ -51,7 +89,9 @@ void StreamStatisticsCalculator::BalanceQueues() {
 void StreamStatisticsCalculator::AppendPrice(double price) {
     priceData.push_back(price);
     currentSum += price;
-    ++dataSize;
+    dataSize = priceData.size();
+    SetCurrentAveragePrice();
+
     if(maxQ.empty()) {
         maxQ.push(price);
         return;
